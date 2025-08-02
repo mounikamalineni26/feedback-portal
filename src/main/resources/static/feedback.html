@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Submit Feedback</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<header>
+    <div class="logo" onclick="location.href='index.html'" style="cursor: pointer;">🗣️ Feedback Portal</div>
+    <button class="logout-btn" onclick="logout()">Logout</button>
+</header>
+
+<div class="container">
+    <div class="form-container">
+        <h2>Submit Feedback</h2>
+        <form id="feedbackForm">
+            <textarea id="feedback" rows="6" placeholder="Enter your feedback..." required></textarea>
+            <button type="submit">Submit</button>
+        </form>
+        <div id="responseMessage" class="success-message"></div>
+    </div>
+</div>
+
+<footer>
+    <p>&copy; 2025 Feedback Portal. All rights reserved.</p>
+</footer>
+
+<script>
+    function logout() {
+        window.location.href = 'index.html';
+    }
+
+    document.getElementById('feedbackForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        const feedback = document.getElementById('feedback').value;
+
+        fetch('http://localhost:8080/api/feedback/submit', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ message: feedback })
+        })
+        .then(async response => {
+            const text = await response.text();
+
+            if (!response.ok) {
+                throw new Error(text || 'Failed to submit feedback');
+            }
+
+            document.getElementById('responseMessage').textContent = `✅ ${text}`;
+            document.getElementById('feedback').value = '';
+        })
+        .catch(error => {
+            document.getElementById('responseMessage').textContent = `❌ ${error.message}`;
+            console.error('Error:', error);
+        });
+    });
+</script>
+
+</body>
+</html>

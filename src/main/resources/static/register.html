@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Register</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<header>
+    <div class="logo" onclick="location.href='index.html'" style="cursor: pointer;">🗣️ Feedback Portal</div>
+</header>
+
+<div class="container">
+    <div class="form-container">
+        <h2>Register</h2>
+        <form id="registerForm">
+            <input type="text" id="username" placeholder="Username" required />
+            <input type="password" id="password" placeholder="Password" required />
+            <input type="password" id="confirmPassword" placeholder="Confirm Password" required />
+            <button type="submit">Register</button>
+            <p class="link-text">Already have an account? <a href="login.html">Login</a></p>
+        </form>
+    </div>
+</div>
+
+<footer>
+    <p>&copy; 2025 Feedback Portal. All rights reserved.</p>
+</footer>
+
+<script>
+    document.getElementById("registerForm").addEventListener("submit", async function (e) {
+      e.preventDefault();
+
+      const username = document.getElementById("username").value.trim();
+      const password = document.getElementById("password").value;
+      const confirmPassword = document.getElementById("confirmPassword").value;
+
+      if (password !== confirmPassword) {
+        alert("Passwords do not match.");
+        return;
+      }
+
+      const response = await fetch("http://localhost:8080/api/auth/register", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ username, password })
+      });
+
+      if (response.ok) {
+        alert("Registered successfully! Please log in.");
+        window.location.href = "login.html";
+      } else {
+        alert("Registration failed. Try a different username.");
+      }
+    });
+</script>
+
+</body>
+</html>

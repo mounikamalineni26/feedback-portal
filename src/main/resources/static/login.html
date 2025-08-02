@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Login</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<header>
+    <div class="logo" onclick="location.href='index.html'" style="cursor: pointer;">🗣️ Feedback Portal</div>
+</header>
+
+<div class="container">
+    <div class="form-container">
+        <h2>Login</h2>
+        <form id="loginForm">
+            <input type="text" id="username" placeholder="Username" required />
+            <input type="password" id="password" placeholder="Password" required />
+            <button type="submit">Login</button>
+            <p class="link-text">Don't have an account? <a href="register.html">Register</a></p>
+        </form>
+    </div>
+</div>
+
+<footer>
+    <p>&copy; 2025 Feedback Portal. All rights reserved.</p>
+</footer>
+
+<script>
+    document.getElementById('loginForm').addEventListener('submit', async function (e) {
+      e.preventDefault();
+
+      const username = document.getElementById('username').value.trim();
+      const password = document.getElementById('password').value;
+
+      const response = await fetch("http://localhost:8080/api/auth/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ username, password })
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        localStorage.setItem("token", data.token);
+        localStorage.setItem("username", username);
+
+        // Simple role check (customize based on your backend response)
+        if (username.toLowerCase() === "admin") {
+          window.location.href = "admin.html";
+        } else {
+          window.location.href = "feedback.html";
+        }
+
+      } else {
+        alert("Invalid username or password.");
+      }
+    });
+</script>
+
+</body>
+</html>
