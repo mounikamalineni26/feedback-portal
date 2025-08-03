@@ -300,12 +300,5 @@ tr:hover {
 .delete-btn:hover {
   background-color: #cc0000;
 }
-footer {
-    background: #f2f2f2;
-    text-align: center;
-    padding: 10px 0;
-    font-size: 14px;
-    color: #333;
-    margin-top: auto;
-  }
+
 
