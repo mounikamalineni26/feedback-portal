@@ -3,12 +3,12 @@ package com.feedback.anonymousfeedback.controller;
 import com.feedback.anonymousfeedback.model.User;
 import com.feedback.anonymousfeedback.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus; // ✅ MISSING IMPORT
-import org.springframework.http.ResponseEntity; // ✅ MISSING IMPORT
+import org.springframework.http.HttpStatus; 
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap; // ✅ MISSING IMPORT
-import java.util.Map;     // ✅ MISSING IMPORT
+import java.util.HashMap; 
+import java.util.Map;     
 
 @RestController
 @RequestMapping("/api/auth")
