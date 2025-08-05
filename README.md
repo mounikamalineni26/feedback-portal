@@ -41,7 +41,8 @@ A full-stack web application where **students can submit anonymous feedback** to
 ![Register Page](src/registerpage.png)
 
 ### 🔹 Feedback Form (Student)
-![Feedback Form](src/feedback form.png)
+![Feedback Form](src/feedback%20form.png)
+
 
 ### 🔹 Admin Dashboard
 ![Admin Dashboard](src/admindashboard.png)
