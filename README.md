@@ -29,6 +29,25 @@ A full-stack web application where **students can submit anonymous feedback** to
 
 ---
 
+## 🖼️ Screenshots
+
+### 🔹 Home Page
+![Home Page](src/homepage.png)
+
+### 🔹 Login Page
+![Login Page](src/login.png)
+
+### 🔹 Register Page
+![Register Page](src/registerpage.png)
+
+### 🔹 Feedback Form (Student)
+![Feedback Form](src/feedback form.png)
+
+### 🔹 Admin Dashboard
+![Admin Dashboard](src/admindashboard.png)
+
+---
+
 ## 🛠️ Tech Stack
 
 - **Frontend**: HTML, CSS, JavaScript  
@@ -39,8 +58,9 @@ A full-stack web application where **students can submit anonymous feedback** to
 ---
 
 ## 🔐 Default Admin (HOD) Login
-Username: admin  
-Password: admin123
+
+- **Username**: `admin`  
+- **Password**: `admin123`  
 
 ---
 
@@ -49,4 +69,5 @@ Password: admin123
 **Mounika Malineni**  
 📧 mounikamalineni63@gmail.com  
 🔗 [GitHub Profile](https://github.com/mounikamalineni26)  
-🔗 [LinkedIn Profile](https://www.linkedin.com/in/mounikamalineni)  
+🔗 [LinkedIn Profile](https://www.linkedin.com/in/mounikamalineni)
+
