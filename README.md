@@ -34,11 +34,11 @@ A full-stack web application where **students can submit anonymous feedback** to
 ### 🔹 Home Page
 ![Home Page](src/homepage.png)
 
-### 🔹 Login Page
-![Login Page](src/login.png)
-
 ### 🔹 Register Page
 ![Register Page](src/registerpage.png)
+
+### 🔹 Login Page
+![Login Page](src/login.png)
 
 ### 🔹 Feedback Form (Student)
 ![Feedback Form](src/feedback%20form.png)
