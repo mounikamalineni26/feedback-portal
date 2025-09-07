@@ -2,6 +2,8 @@
 
 A full-stack web application where **students can submit anonymous feedback** to the **Head of Department (HOD)** without revealing their identity. The HOD can **view and manage all feedback** through a secure admin panel.
 
+💻 Live Demo: https://feedbackanonymousportal.netlify.app/
+
 ---
 
 ## 🎯 Use Cases
