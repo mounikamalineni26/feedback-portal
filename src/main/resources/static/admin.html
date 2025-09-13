@@ -73,7 +73,7 @@ function deleteFeedback(id) {
         .then(response => {
             if (!response.ok) throw new Error("Delete failed. Status: " + response.status);
             alert("Feedback deleted successfully!");
-            loadFeedback(); // reload table instead of full page refresh
+            location.reload();
         })
         .catch(error => {
             console.error("Error deleting feedback:", error);
