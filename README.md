@@ -1,8 +1,8 @@
 # 📝 Feedback Portal
 
-A full-stack web application where **students can submit anonymous feedback** to the **Head of Department (HOD)** without revealing their identity. The HOD can **view and manage all feedback** through a secure admin panel.
+A full-stack web application where **students can submit anonymous feedback** to the **Head of Department (HOD)** without revealing their identity. The HOD can **view feedback** through a secure admin panel.
 
-💻 Live Demo: https://feedbackanonymousportal.netlify.app/
+💻 Live Demo: [Feedback Portal](https://feedback-portal.up.railway.app/)
 
 ---
 
@@ -16,8 +16,7 @@ A full-stack web application where **students can submit anonymous feedback** to
 ### 👨‍🏫 For HODs (Admins):
 - ✅ Login with secure credentials  
 - ✅ View all feedback submitted by students  
-- ✅ Delete irrelevant or duplicate feedback  
-- ✅ Use feedback to improve academic or administrative processes  
+- ✅ Use feedback insights to improve academic or administrative processes  
 
 ---
 
@@ -25,7 +24,7 @@ A full-stack web application where **students can submit anonymous feedback** to
 
 - 🔒 Login & Registration  
 - 🧾 Submit Anonymous Feedback  
-- 🧑‍💼 Admin (HOD) Panel to View & Delete Feedback  
+- 🧑‍💼 Admin (HOD) Panel to View Feedback  
 - 🌐 Spring Boot REST API  
 - 💾 MySQL Database Integration  
 
@@ -41,13 +40,6 @@ A full-stack web application where **students can submit anonymous feedback** to
 
 ### 🔹 Login Page
 ![Login Page](src/login.png)
-
-### 🔹 Feedback Form (Student)
-![Feedback Form](src/feedback%20form.png)
-
-
-### 🔹 Admin Dashboard
-![Admin Dashboard](src/admindashboard.png)
 
 ---
 
@@ -67,10 +59,24 @@ A full-stack web application where **students can submit anonymous feedback** to
 
 ---
 
+## ⚙️ Installation & Setup
+
+```bash
+# Clone the repo
+git clone https://github.com/mounikamalineni26/feedback-portal.git
+cd feedback-portal
+
+# Configure MySQL DB in application.properties
+
+# Run the Spring Boot app
+mvn spring-boot:run
+
+---
+
+
 ## 🤝 Author
 
 **Mounika Malineni**  
 📧 mounikamalineni63@gmail.com  
 🔗 [GitHub Profile](https://github.com/mounikamalineni26)  
 🔗 [LinkedIn Profile](https://www.linkedin.com/in/mounikamalineni)
-
