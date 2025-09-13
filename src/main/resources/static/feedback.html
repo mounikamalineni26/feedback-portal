@@ -38,7 +38,7 @@
 
         const feedback = document.getElementById('feedback').value;
 
-        fetch('https://feedback-portal.railway.app/api/feedback/submit', {
+        fetch('/api/feedback/submit', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
