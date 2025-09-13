@@ -37,7 +37,7 @@
 <script>
     // Fetch all feedback from the backend
     document.addEventListener("DOMContentLoaded", () => {
-      fetch("http://localhost:8080/api/feedback/all")
+      fetch("https://feedback-portal.railway.app/api/feedback/all")
         .then(response => {
           if (!response.ok) {
             throw new Error("Failed to load feedback. Status: " + response.status);
@@ -80,7 +80,7 @@
 
   const username = "admin"; // Replace with actual admin username or logic if needed
 
-  fetch(`http://localhost:8080/api/feedback/admin/delete/${id}?username=${username}`, {
+  fetch(`https://feedback-portal.railway.app/api/feedback/admin/delete/${id}?username=${username}`, {
     method: "DELETE"
   })
     .then(response => {
