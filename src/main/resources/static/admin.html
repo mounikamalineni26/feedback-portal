@@ -10,9 +10,8 @@
     <div>Admin Dashboard</div>
     <button class="logout-btn" onclick="logout()">Logout</button>
 </header>
-
 <h2>All Feedbacks</h2>
-
+<div class="container">
 <table id="feedbackTable">
     <thead>
     <tr>
@@ -26,6 +25,7 @@
     <!-- Feedback rows will go here -->
     </tbody>
 </table>
+</div>
 <footer>
     <p>© 2025 Feedback Portal. All rights reserved.</p>
 </footer>
@@ -80,7 +80,7 @@
 
   const username = "admin"; // Replace with actual admin username or logic if needed
 
-  fetch(`/api/feedback/admin/delete/${id}?username=${username}`, {
+  fetch(`/api/feedback/admin/delete/${id}`, {
     method: "DELETE"
   })
     .then(response => {
