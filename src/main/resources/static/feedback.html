@@ -51,12 +51,12 @@
             if (!response.ok) {
                 throw new Error(text || 'Failed to submit feedback');
             }
-
-            document.getElementById('responseMessage').textContent = `✅ ${text}`;
+            alert("✅ " + text);
+            console.log("Feedback submitted successfully:", text);
             document.getElementById('feedback').value = '';
         })
         .catch(error => {
-            document.getElementById('responseMessage').textContent = `❌ ${error.message}`;
+            alert("❌ " + error.message);
             console.error('Error:', error);
         });
     });
