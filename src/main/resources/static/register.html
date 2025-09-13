@@ -42,7 +42,7 @@
         return;
       }
 
-      const response = await fetch("https://feedback-portal.railway.app/api/auth/register", {
+      const response = await fetch("/api/auth/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ username, password })
