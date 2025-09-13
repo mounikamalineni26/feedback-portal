@@ -59,24 +59,11 @@ A full-stack web application where **students can submit anonymous feedback** to
 
 ---
 
-## ⚙️ Installation & Setup
-
-```bash
-# Clone the repo
-git clone https://github.com/mounikamalineni26/feedback-portal.git
-cd feedback-portal
-
-# Configure MySQL DB in application.properties
-
-# Run the Spring Boot app
-mvn spring-boot:run
-
----
-
 
 ## 🤝 Author
 
 **Mounika Malineni**  
-📧 mounikamalineni63@gmail.com  
+
+📧 [mounikamalineni63@gmail.com](mailto:mounikamalineni63@gmail.com)  
 🔗 [GitHub Profile](https://github.com/mounikamalineni26)  
 🔗 [LinkedIn Profile](https://www.linkedin.com/in/mounikamalineni)
