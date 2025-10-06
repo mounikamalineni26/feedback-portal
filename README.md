@@ -2,7 +2,8 @@
 
 A full-stack web application where **students can submit anonymous feedback** to the **Head of Department (HOD)** without revealing their identity. The HOD can **view feedback** through a secure admin panel.
 
-💻 Live Demo: [Feedback Portal](https://feedback-portal.up.railway.app/)
+💻 Live Demo: 
+[Feedback Portal](https://feedback-portal.up.railway.app/)
 
 ---
 
@@ -58,6 +59,11 @@ A full-stack web application where **students can submit anonymous feedback** to
 - **Password**: `admin123`  
 
 ---
+
+## ✅ Testing
+- All backend APIs tested using **Postman**
+- End-to-end workflow verified for student submission and HOD view
+
 
 
 ## 🤝 Author
