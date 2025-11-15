@@ -1,6 +1,6 @@
 # 📝 Feedback Portal
 
-A full-stack web application where **students can submit anonymous feedback** to the **Head of Department (HOD)** without revealing their identity. The HOD can securely**view,manage and act on feedback **  through an admin dashboard.
+A full-stack web application where **students can submit anonymous feedback** to the **Head of Department (HOD)** without revealing their identity. The HOD can securely **view,manage and act on feedback**  through an admin dashboard.
 
 ---
 
