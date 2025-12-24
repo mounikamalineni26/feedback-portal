@@ -1,5 +1,5 @@
-# Use an official OpenJDK runtime as a parent image
-FROM openjdk:17-jdk-slim
+# Use Eclipse Temurin OpenJDK 17
+FROM eclipse-temurin:17-jdk
 
 # Set working directory
 WORKDIR /app
@@ -12,7 +12,7 @@ COPY pom.xml .
 # Download dependencies
 RUN ./mvnw dependency:go-offline -B
 
-# Copy the rest of the code
+# Copy the rest of the source code
 COPY src/ src/
 
 # Build the project
