@@ -1,0 +1,13 @@
+services:
+  - type: web
+    name: anonymousfeedback
+    env: java
+    plan: free
+    buildCommand: "./mvnw clean package -DskipTests"
+    startCommand: "java -jar target/anonymousfeedback-0.0.1-SNAPSHOT.jar"
+    envVars:
+      - key: SPRING_DATASOURCE_URL
+        value: jdbc:h2:mem:testdb
+      - key: SPRING_H2_CONSOLE_ENABLED
+        value: true
+    autoDeploy: true
