@@ -32,6 +32,16 @@ public class SecurityConfig {
                         session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 )
                 .authorizeHttpRequests(auth -> auth
+                        .requestMatchers(
+                                "/",
+                                "/index.html",
+                                "/login.html",
+                                "/register.html",
+                                "/admin.html",
+                                "/feedback.html",
+                                "/style.css",
+                                "/images/**"
+                        ).permitAll()
                         .requestMatchers("/auth/**").permitAll()
                         .requestMatchers("/api/feedback/submit").permitAll()
                         .requestMatchers("/api/feedback/admin/**").hasRole("ADMIN")
