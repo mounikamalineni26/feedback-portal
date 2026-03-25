@@ -1,0 +1,341 @@
+[33mcommit 384689bfdd68d3a0bf05b9808f77dc38cd5e2907[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmaster[m[33m)[m
+Author: Mounika Malineni <mounikamalineni63@gmail.com>
+Date:   Wed Mar 25 18:42:14 2026 +0530
+
+    updated feedback portal project
+
+[33mcommit 53e06bfdd8914402d8a32502beca7e3ba89fb9ed[m[33m ([m[1;31morigin/master[m[33m, [m[1;31morigin/HEAD[m[33m)[m
+Author: Mounika Malineni <mounikamalineni63@gmail.com>
+Date:   Sat Feb 7 23:22:49 2026 +0530
+
+    Add MIT License to the project
+
+[33mcommit d5385a501a15a854d2cc8e5244156a10d7cfed70[m
+Author: Mounika Malineni <mounikamalineni63@gmail.com>
+Date:   Wed Jan 21 23:52:45 2026 +0530
+
+    Delete render.yaml
+
+[33mcommit 6c7252e2c9b780b4841580643d6c94f51d315b44[m
+Author: Mounika Malineni <mounikamalineni63@gmail.com>
+Date:   Wed Jan 21 23:52:29 2026 +0530
+
+    Delete Procfile
+
+[33mcommit fdcf080ad02d60efad2b5e950cea0ac2c6d169a1[m
+Author: Mounika Malineni <mounikamalineni63@gmail.com>
+Date:   Wed Jan 21 23:52:15 2026 +0530
+
+    Delete Dockerfile
+
+[33mcommit bf143d8293eb8b1eb6b03c45876ca423bb7a0bbd[m
+Author: Mounika Malineni <mounikamalineni63@gmail.com>
+Date:   Wed Dec 24 16:22:20 2025 +0530
+
+    Update application.properties
+
+[33mcommit 214f88cc14baeb423c2e97c31963cecfc5ba9e98[m
+Author: Mounika Malineni <mounikamalineni63@gmail.com>
+Date:   Wed Dec 24 16:05:48 2025 +0530
+
+    Update Dockerfile
+
+[33mcommit bdaeee9eca858cfb6c4ff460b5595521a56d04ac[m
+Author: Mounika Malineni <mounikamalineni63@gmail.com>
+Date:   Wed Dec 24 16:02:58 2025 +0530
+
+    Update render.yaml for feedback portal service
+
+[33mcommit d4bc690e2722a2aedfb0267334926440fb9b5712[m
+Author: Mounika Malineni <mounikamalineni63@gmail.com>
+Date:   Wed Dec 24 16:02:31 2025 +0530
+
+    Update comments for clarity in Dockerfile
+
+[33mcommit 8bc0c45fe9456cb1b19a0b40171b374abd5c4757[m
+Author: Mounika Malineni <mounikamalineni63@gmail.com>
+Date:   Wed Dec 24 16:01:24 2025 +0530
+
+    Update Dockerfile to use Eclipse Temurin image
+
+[33mcommit 389bdae509d35aee051af5d25c0827995bd1eacb[m
+Author: Mounika Malineni <mounikamalineni63@gmail.com>
+Date:   Wed Dec 24 15:58:47 2025 +0530
+
+    Add Dockerfile for Spring Boot application
+
+[33mcommit 66d501ce43c8aa6c89d59d5378e7754aa5d68caf[m
+Author: Mounika Malineni <mounikamalineni63@gmail.com>
+Date:   Wed Dec 24 15:40:26 2025 +0530
+
+    Add render.yaml for anonymous feedback service
+
+[33mcommit a5c60cef973c5edacd397ffd69f4295ba0b09ac5[m
+Author: Mounika Malineni <mounikamalineni63@gmail.com>
+Date:   Sat Nov 15 10:42:20 2025 +0530
+
+    Update README.md
+
+[33mcommit b891a8b2f6e6f7cdeab41674b0e2cf1dbd066569[m
+Author: Mounika Malineni <mounikamalineni63@gmail.com>
+Date:   Sat Nov 15 10:41:24 2025 +0530
+
+    Update README.md
+
+[33mcommit 33360a4fce05827b94dea1945ab5d2a80306e3de[m
+Author: Mounika Malineni <mounikamalineni63@gmail.com>
+Date:   Thu Nov 6 09:29:56 2025 +0530
+
+    Update README.md
+
+[33mcommit 2a6af3575d2dd2a8b0dfd86d5d14676529c618a3[m
+Author: Mounika Malineni <mounikamalineni63@gmail.com>
+Date:   Mon Oct 6 22:01:06 2025 +0530
+
+    Update README.md
+
+[33mcommit c6c7abc0812fb3c0d220ba055a63d126ef91d2f2[m
+Author: Mounika Malineni <mounikamalineni63@gmail.com>
+Date:   Sat Sep 13 23:00:16 2025 +0530
+
+    Update README.md
+
+[33mcommit 68e00c4d19b3b2f954f2593e1921ddf62db2bea7[m
+Author: Mounika Malineni <mounikamalineni63@gmail.com>
+Date:   Sat Sep 13 22:48:07 2025 +0530
+
+    Update README.md
+
+[33mcommit a3998cb2f2769b7274e0cc8dabffb5c92b40141f[m
+Author: Mounika Malineni <mounikamalineni63@gmail.com>
+Date:   Sat Sep 13 16:45:16 2025 +0530
+
+    Update admin.html
+
+[33mcommit f51f78b90bee2cf92ea6cc6ce755c888b340d100[m
+Author: Mounika Malineni <mounikamalineni63@gmail.com>
+Date:   Sat Sep 13 16:38:19 2025 +0530
+
+    Update admin.html
+
+[33mcommit 91c74c02e4b4a5fa8d74ac486c0842117bb59a76[m
+Author: Mounika Malineni <mounikamalineni63@gmail.com>
+Date:   Sat Sep 13 16:30:40 2025 +0530
+
+    Update admin.html
+
+[33mcommit 3a23cc0a6476bab78881f4e8e2228a7c5b51ed47[m
+Author: Mounika Malineni <mounikamalineni63@gmail.com>
+Date:   Sat Sep 13 16:22:25 2025 +0530
+
+    Update feedback.html
+
+[33mcommit 5b94e01ec2320edea1a4762e15245b5368abd1f4[m
+Author: Mounika Malineni <mounikamalineni63@gmail.com>
+Date:   Sat Sep 13 16:14:26 2025 +0530
+
+    Update admin.html
+
+[33mcommit 4b2684b35a02a9bbb246717bb955294560d60a28[m
+Author: Mounika Malineni <mounikamalineni63@gmail.com>
+Date:   Sat Sep 13 16:04:21 2025 +0530
+
+    Update admin.html
+
+[33mcommit 5e0b2407adc274bde385c828713b4254470cd1cf[m
+Author: Mounika Malineni <mounikamalineni63@gmail.com>
+Date:   Sat Sep 13 15:49:10 2025 +0530
+
+    Update admin.html
+
+[33mcommit 63c257c55386d65a5fea2527a09357e433c1c4a6[m
+Author: Mounika Malineni <mounikamalineni63@gmail.com>
+Date:   Sat Sep 13 15:38:09 2025 +0530
+
+    Update admin.html
+
+[33mcommit 93a8552f5f2c554a7e55564b8c5ee67b0d678913[m
+Author: Mounika Malineni <mounikamalineni63@gmail.com>
+Date:   Sat Sep 13 15:37:01 2025 +0530
+
+    Update feedback.html
+
+[33mcommit 8992ece06d292f69da87c28761999e39d897e327[m
+Author: Mounika Malineni <mounikamalineni63@gmail.com>
+Date:   Sat Sep 13 15:35:47 2025 +0530
+
+    Update login.html
+
+[33mcommit 1f43bd67e546650bb67909ed7e1088d243003ff5[m
+Author: Mounika Malineni <mounikamalineni63@gmail.com>
+Date:   Sat Sep 13 15:35:04 2025 +0530
+
+    Update register.html
+
+[33mcommit 0c861487fa6b46b290efaf195fa905156360911b[m
+Author: Mounika Malineni <mounikamalineni63@gmail.com>
+Date:   Sat Sep 13 15:27:49 2025 +0530
+
+    Update admin.html
+
+[33mcommit 773d8fc85ef0bde8bcc090527a1d235b9574946a[m
+Author: Mounika Malineni <mounikamalineni63@gmail.com>
+Date:   Sat Sep 13 15:26:40 2025 +0530
+
+    Update feedback.html
+
+[33mcommit 062698e2395aa97654c463666d8b9d055d97ee5e[m
+Author: Mounika Malineni <mounikamalineni63@gmail.com>
+Date:   Sat Sep 13 15:25:20 2025 +0530
+
+    Update login.html
+
+[33mcommit 32d256f6f433905a3de6d533f1ab6a2105d0fcd5[m
+Author: Mounika Malineni <mounikamalineni63@gmail.com>
+Date:   Sat Sep 13 15:23:10 2025 +0530
+
+    Update register.html
+
+[33mcommit c60ac55f5c980c3b22c64ab8c1c46aeb78af0486[m
+Author: Mounika Malineni <mounikamalineni63@gmail.com>
+Date:   Sat Sep 13 14:56:47 2025 +0530
+
+    Create Procfile
+
+[33mcommit ecc4fa4f28b5d853c05d60c1267e80a762992156[m
+Author: Mounika Malineni <mounikamalineni63@gmail.com>
+Date:   Sat Sep 13 14:40:57 2025 +0530
+
+    Update HomeController.java
+
+[33mcommit 6237976ab146b5ff6b94926ef75d09e963423004[m
+Author: Mounika Malineni <mounikamalineni63@gmail.com>
+Date:   Sat Sep 13 14:37:41 2025 +0530
+
+    Update HomeController.java
+
+[33mcommit c83d8cbbda14ec4933570a2749dc04f15abbc41d[m
+Author: Mounika Malineni <mounikamalineni63@gmail.com>
+Date:   Sat Sep 13 14:20:34 2025 +0530
+
+    Create HomeController.java
+
+[33mcommit da3f0f42ef460acfdad5f857cebb700d49c19ccc[m
+Author: Mounika Malineni <mounikamalineni63@gmail.com>
+Date:   Sat Sep 13 10:16:15 2025 +0530
+
+    Update application.properties
+
+[33mcommit e2ff34f451eb0297e03df99fcd16d3b0606a3a43[m
+Author: Mounika Malineni <mounikamalineni63@gmail.com>
+Date:   Sat Sep 13 10:13:00 2025 +0530
+
+    Update application.properties
+
+[33mcommit cb3ddf75f7cf48e7c611784815f7f9d0055a77d2[m
+Author: Mounika Malineni <mounikamalineni63@gmail.com>
+Date:   Sat Sep 13 09:47:35 2025 +0530
+
+    Update application.properties
+
+[33mcommit bff591fcd1a50ecdd96f11a8e9c54f7a13f53583[m
+Author: Mounika Malineni <mounikamalineni63@gmail.com>
+Date:   Sat Sep 13 09:15:50 2025 +0530
+
+    Update application.properties
+
+[33mcommit 0ee64e30947489acdb6e83363c6cdcffdb789495[m
+Author: Mounika Malineni <mounikamalineni63@gmail.com>
+Date:   Sat Sep 13 08:35:43 2025 +0530
+
+    Update application.properties
+
+[33mcommit d507fd77dc2c24fcb1dcd6f63597c4ae78729f24[m
+Author: Mounika Malineni <mounikamalineni63@gmail.com>
+Date:   Sun Sep 7 23:07:23 2025 +0530
+
+    Update README.md
+
+[33mcommit 5971947cc08d012b2b0dd03d1e5423edf9ba62f0[m
+Author: Mounika Malineni <mounikamalineni63@gmail.com>
+Date:   Tue Aug 5 20:10:10 2025 +0530
+
+    Update README.md
+
+[33mcommit 68d006c5e02f2d23cfba226a1966a05b8ee18cc0[m
+Author: Mounika Malineni <mounikamalineni63@gmail.com>
+Date:   Tue Aug 5 20:07:48 2025 +0530
+
+    Adding Screenshots to my README.md
+
+[33mcommit 8292be2549be837ae068a588ce20a663673cad78[m
+Author: Mounika Malineni <mounikamalineni63@gmail.com>
+Date:   Tue Aug 5 20:06:51 2025 +0530
+
+    Adding Screenshots to my README.md
+
+[33mcommit 02cf4fc3a62690ca20eac562efd966c2941174b1[m
+Author: Mounika Malineni <mounikamalineni63@gmail.com>
+Date:   Tue Aug 5 19:34:00 2025 +0530
+
+    Update README.md
+
+[33mcommit 5e7d10dc48412ecd6850f171b49a8f8ecc63db53[m
+Author: Mounika Malineni <mounikamalineni63@gmail.com>
+Date:   Tue Aug 5 19:15:00 2025 +0530
+
+    Add files via upload
+
+[33mcommit 7a674a83998689a41b77ac25bed12c61dd8b085f[m
+Author: Mounika Malineni <mounikamalineni63@gmail.com>
+Date:   Tue Aug 5 19:14:30 2025 +0530
+
+    Add files via upload
+
+[33mcommit 3ba9a704617b8d9addc1fa2f3e76ddd22cb81bcd[m
+Author: Mounika Malineni <mounikamalineni63@gmail.com>
+Date:   Tue Aug 5 19:13:55 2025 +0530
+
+    Add files via upload
+
+[33mcommit 41703e5ec8d11acab64bda83fe49ca11b711a309[m
+Author: Mounika Malineni <mounikamalineni63@gmail.com>
+Date:   Tue Aug 5 19:13:05 2025 +0530
+
+    Add files via upload
+
+[33mcommit f7acfec122c7babaea2aaeab58b5ad6ce56a9ae7[m
+Author: Mounika Malineni <mounikamalineni63@gmail.com>
+Date:   Tue Aug 5 19:08:09 2025 +0530
+
+    Add files via upload
+
+[33mcommit 7330c7fb6a369e2d46e32df68c7bb382e25d601e[m
+Author: Mounika Malineni <mounikamalineni63@gmail.com>
+Date:   Mon Aug 4 22:15:18 2025 +0530
+
+    Update README.md
+
+[33mcommit 997e5a01204d73c95d074ff218814e1e4b36a6f3[m
+Author: Mounika Malineni <mounikamalineni63@gmail.com>
+Date:   Mon Aug 4 22:12:53 2025 +0530
+
+    Create README.md
+
+[33mcommit b552a325467517e43b102a184e1cf819b4f72255[m
+Author: Mounika Malineni <mounikamalineni63@gmail.com>
+Date:   Sun Aug 3 14:22:00 2025 +0530
+
+    Update style.css
+
+[33mcommit d1d02d3dbc3fdc546758a78e82c7ac891463bebd[m
+Author: Mounika Malineni <mounikamalineni63@gmail.com>
+Date:   Sun Aug 3 14:17:02 2025 +0530
+
+    Update AuthController.java
+
+[33mcommit 162d9bfe482cbce1649a3b2568179fceb6f5ec55[m
+Author: Mounika Malineni <mounikamalineni63@gmail.com>
+Date:   Sun Aug 3 01:10:35 2025 +0530
+
+    Initial commit of Feedback Portal project
