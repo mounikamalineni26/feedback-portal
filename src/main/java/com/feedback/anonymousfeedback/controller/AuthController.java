@@ -1,49 +1,80 @@
 package com.feedback.anonymousfeedback.controller;
 
+import com.feedback.anonymousfeedback.security.JwtUtil;
 import com.feedback.anonymousfeedback.model.User;
 import com.feedback.anonymousfeedback.repository.UserRepository;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus; 
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap; 
-import java.util.Map;     
-
+@CrossOrigin(origins = "http://localhost:63342")
 @RestController
-@RequestMapping("/api/auth")
-@CrossOrigin // Allow frontend access
+@RequestMapping("/auth")
 public class AuthController {
+
+    @Autowired
+    private AuthenticationManager authenticationManager;
+
+    @Autowired
+    private JwtUtil jwtUtil;
 
     @Autowired
     private UserRepository userRepository;
 
-    // 🔹 Register a new user
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
     @PostMapping("/register")
-    public String register(@RequestBody User user) {
-        if (userRepository.findByUsername(user.getUsername()) != null) {
-            return "Username already exists!";
-        }
+    public ResponseEntity<?> register(@RequestBody RegisterRequest request) {
+
+        User user = new User();
+        user.setUsername(request.username);
+        user.setPassword(passwordEncoder.encode(request.password));
+        user.setRole("USER");
+
         userRepository.save(user);
-        return "User registered successfully!";
+
+        return ResponseEntity.ok("User registered successfully");
     }
 
-    // 🔹 Login
     @PostMapping("/login")
-    public ResponseEntity<?> loginUser(@RequestBody User user) {
-        User existingUser = userRepository.findByUsername(user.getUsername());
-        if (existingUser == null || !existingUser.getPassword().equals(user.getPassword())) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid username or password!");
+    public ResponseEntity<?> login(@RequestBody AuthRequest request) {
+
+        Authentication auth = authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(request.username, request.password)
+        );
+
+        String role = auth.getAuthorities().iterator().next().getAuthority().replace("ROLE_", "");
+        String token = jwtUtil.generateToken(request.username, role);
+
+        return ResponseEntity.ok(new AuthResponse(token, request.username, role));
+    }
+
+    static class AuthRequest {
+        public String username;
+        public String password;
+    }
+
+    static class RegisterRequest {
+        public String username;
+        public String password;
+        public String role;
+    }
+
+    static class AuthResponse {
+        public String token;
+        public String username;
+        public String role;
+
+        public AuthResponse(String token, String username, String role) {
+            this.token = token;
+            this.username = username;
+            this.role = role;
         }
-
-        // Determine role based on username
-        String role = user.getUsername().equalsIgnoreCase("admin") ? "admin" : "user";
-
-        // Prepare response
-        Map<String, String> response = new HashMap<>();
-        response.put("message", "Login successful!");
-        response.put("role", role);
-
-        return ResponseEntity.ok(response);
     }
 }

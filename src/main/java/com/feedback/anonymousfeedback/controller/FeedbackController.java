@@ -1,16 +1,20 @@
 package com.feedback.anonymousfeedback.controller;
 
 import com.feedback.anonymousfeedback.model.Feedback;
-import com.feedback.anonymousfeedback.model.User;
 import com.feedback.anonymousfeedback.service.FeedbackService;
-import com.feedback.anonymousfeedback.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.*;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import com.feedback.anonymousfeedback.dto.AdminStatsResponse;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 
 import java.util.List;
 
-@CrossOrigin(origins = "*")
+@CrossOrigin(origins = "http://localhost:63342")
 @RestController
 @RequestMapping("/api/feedback")
 public class FeedbackController {
@@ -18,28 +22,62 @@ public class FeedbackController {
     @Autowired
     private FeedbackService feedbackService;
 
-    @Autowired
-    private UserService userService;
-
+    // Public API - no authentication required
     @PostMapping("/submit")
-    public ResponseEntity<String> submitFeedback(@RequestBody Feedback feedback) {
-        feedbackService.submitFeedback(feedback);
-        return ResponseEntity.ok("Feedback submitted successfully");
+    public ResponseEntity<Feedback> submitFeedback(@RequestBody Feedback feedback) {
+        return ResponseEntity.ok(feedbackService.saveFeedback(feedback));
     }
 
-    @GetMapping("/all")
-    public List<Feedback> getAllFeedback() {
-        return feedbackService.getAllFeedback();
+
+    // Admin: Get paginated ACTIVE feedback
+    @PreAuthorize("hasRole('ADMIN')")
+    @GetMapping("/admin/all")
+    public ResponseEntity<Page<Feedback>> getAllFeedback(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "5") int size,
+            @RequestParam(defaultValue = "createdAt") String sortBy,
+            @RequestParam(defaultValue = "desc") String direction) {
+
+        Sort sort = direction.equalsIgnoreCase("asc") ?
+                Sort.by(sortBy).ascending() :
+                Sort.by(sortBy).descending();
+
+        Pageable pageable = PageRequest.of(page, size, sort);
+
+        return ResponseEntity.ok(feedbackService.getFeedbacks(pageable));
     }
 
-    // ✅ Admin-only delete endpoint
-    @DeleteMapping("/admin/delete/{id}")
-    public ResponseEntity<String> deleteFeedback(@PathVariable Long id, @RequestParam String username) {
-        User user = userService.findByUsername(username);
-        if (user != null && "ADMIN".equalsIgnoreCase(user.getRole())) {
-            feedbackService.deleteFeedback(id);
-            return ResponseEntity.ok("Feedback deleted");
-        }
-        return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Access denied");
+
+    // Admin: soft delete
+    @PreAuthorize("hasRole('ADMIN')")
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<String> deleteFeedback(@PathVariable Long id) {
+        feedbackService.softDeleteFeedback(id);
+        return ResponseEntity.ok("Feedback marked as deleted");
+    }
+
+
+    // Admin Stats
+    @PreAuthorize("hasRole('ADMIN')")
+    @GetMapping("/admin/stats")
+    public ResponseEntity<AdminStatsResponse> getAdminStats() {
+
+        long total = feedbackService.getTotalFeedback();
+        long today = feedbackService.getTodayFeedback();
+
+        return ResponseEntity.ok(new AdminStatsResponse(total, today));
+    }
+
+
+    // Filter by category
+    @GetMapping("/category/{category}")
+    public ResponseEntity<List<Feedback>> getByCategory(@PathVariable String category) {
+        return ResponseEntity.ok(feedbackService.getFeedbackByCategory(category));
+    }
+
+    @PreAuthorize("hasRole('ADMIN')")
+    @GetMapping("/count")
+    public ResponseEntity<Long> getTotalActiveFeedback() {
+        return ResponseEntity.ok(feedbackService.getTotalFeedback());
     }
 }

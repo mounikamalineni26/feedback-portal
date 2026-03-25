@@ -2,14 +2,20 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Register</title>
     <link rel="stylesheet" href="style.css" />
 </head>
+
 <body>
 
 <header>
-    <div class="logo" onclick="location.href='index.html'" style="cursor: pointer;">🗣️ Feedback Portal</div>
+    <div class="navbar">
+        <div class="logo">
+            💬 <span class="brand">Feedback</span>
+            <span class="sub">Portal</span>
+        </div>
+    </div>
 </header>
 
 <div class="container">
@@ -19,8 +25,15 @@
             <input type="text" id="username" placeholder="Username" required />
             <input type="password" id="password" placeholder="Password" required />
             <input type="password" id="confirmPassword" placeholder="Confirm Password" required />
-            <button type="submit">Register</button>
-            <p class="link-text">Already have an account? <a href="login.html">Login</a></p>
+
+
+            <button type="submit" id="registerBtn" class="btn btn-primary">
+                Register
+            </button>
+
+            <p class="link-text">
+                Already have an account? <a href="login.html">Login</a>
+            </p>
         </form>
     </div>
 </div>
@@ -29,31 +42,73 @@
     <p>&copy; 2025 Feedback Portal. All rights reserved.</p>
 </footer>
 
+<!-- ✅ Toast -->
+<div id="toast" class="toast"></div>
+
 <script>
+    const registerBtn = document.getElementById("registerBtn");
+
+    // ✅ Toast Function
+
+    function showToast(message, type = "success") {
+        const toast = document.getElementById("toast");
+
+        toast.textContent = message;
+
+        toast.className = "toast";
+
+        toast.classList.add("show", type);
+
+        setTimeout(() => {
+            toast.classList.remove("show");
+        }, 3000);
+    }
+
     document.getElementById("registerForm").addEventListener("submit", async function (e) {
-      e.preventDefault();
+        e.preventDefault();
 
-      const username = document.getElementById("username").value.trim();
-      const password = document.getElementById("password").value;
-      const confirmPassword = document.getElementById("confirmPassword").value;
+        const username = document.getElementById("username").value.trim();
+        const password = document.getElementById("password").value;
+        const confirmPassword = document.getElementById("confirmPassword").value;
 
-      if (password !== confirmPassword) {
-        alert("Passwords do not match.");
-        return;
-      }
+         // 🔴 Validation
+        if (password !== confirmPassword) {
+            showToast("Passwords do not match", "error");
+            return;
+        }
 
-      const response = await fetch("/api/auth/register", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ username, password })
-      });
+        // 🔄 Loading
+        registerBtn.disabled = true;
+        registerBtn.innerText = "Registering...";
 
-      if (response.ok) {
-        alert("Registered successfully! Please log in.");
-        window.location.href = "login.html";
-      } else {
-        alert("Registration failed. Try a different username.");
-      }
+        try {
+            const response = await fetch("http://localhost:8080/auth/register", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ username, password})
+            });
+
+            const data = await response.text();
+
+            if (response.ok) {
+                // ✅ Store toast for login page
+                localStorage.setItem("toastMessage", "Registered successfully! Please login.");
+
+                // Redirect to login
+                window.location.href = "login.html";
+
+            } else {
+                showToast(data.message || "Registration failed", "error");
+            }
+
+        } catch (err) {
+            console.error("Register error:", err);
+            showToast("Server error. Try again.", "error");
+
+        } finally {
+            registerBtn.disabled = false;
+            registerBtn.innerText = "Register";
+        }
     });
 </script>
 

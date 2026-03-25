@@ -2,70 +2,331 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Admin Feedback Viewer</title>
+    <title>Admin Dashboard</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+
 <header>
-    <div>Admin Dashboard</div>
-    <button class="logout-btn" onclick="logout()">Logout</button>
+    <nav class="navbar">
+        <div class="logo">
+            🛠️ <span class="brand">Admin</span>
+            <span class="sub">Dashboard</span>
+        </div>
+
+        <div class="nav-buttons">
+            <button class="btn btn-danger" onclick="logout()">Logout</button>
+        </div>
+    </nav>
 </header>
 
-<h2>All Feedbacks</h2>
-<div>
-    <table id="feedbackTable">
-        <thead>
-        <tr>
-            <th>Feedback ID</th>
-            <th>Feedback</th>
-            <th>Submitted At</th>
-        </tr>
-        </thead>
-        <tbody id="feedbackBody">
-        <!-- Feedback rows will be dynamically loaded here -->
-        </tbody>
-    </table>
+<div class="container">
+    <div class="dashboard-box">
+
+        <!-- Stats -->
+        <div class="stats">
+            <div class="card">Total Feedback: <span id="totalCount">0</span></div>
+            <div class="card">Today's Feedback: <span id="todayCount">0</span></div>
+        </div>
+
+        <!-- Search + Filter -->
+        <div class="controls">
+            <input type="text" id="searchInput" placeholder="Search feedback...">
+
+            <select id="categoryFilter">
+                <option value="">All Categories</option>
+                <option value="Academic">Academic</option>
+                <option value="Infrastructure">Infrastructure</option>
+                <option value="Faculty">Faculty</option>
+                <option value="Other">Other</option>
+            </select>
+        </div>
+
+        <!-- Table -->
+        <table class="feedback-table">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Category</th>
+                <th>Content</th>
+                <th>Date</th>
+                <th>Action</th>
+            </tr>
+            </thead>
+            <tbody id="feedbackTable"></tbody>
+        </table>
+
+        <!-- Pagination -->
+        <div class="pagination">
+            <button id="prevBtn" onclick="prevPage()">Prev</button>
+            <span id="pageInfo"></span>
+            <button id="nextBtn" onclick="nextPage()">Next</button>
+        </div>
+
+    </div>
 </div>
 
+<footer>
+    <p>&copy; 2025 Feedback Portal. All rights reserved.</p>
+</footer>
+
+<div id="toast" class="toast"></div>
+
 <script>
-document.addEventListener("DOMContentLoaded", () => {
+    let currentPage = 0;
+    let allFeedbacks = [];
+    let isLastPage = false;
+
+    // 🔐 Auth Headers
+    function getAuthHeaders() {
+        const token = localStorage.getItem("token");
+
+        if (!token) {
+            alert("Please login first!");
+            window.location.href = "login.html";
+            throw new Error("No token");
+        }
+
+        return {
+            "Content-Type": "application/json",
+            "Authorization": "Bearer " + token
+        };
+    }
+
+    // 🔒 Role check
+    if (localStorage.getItem("role") !== "ADMIN") {
+         window.location.href = "login.html";
+    }
+
+    // 🚨 Unauthorized
+    function handleUnauthorized() {
+        alert("Session expired. Login again.");
+        localStorage.removeItem("token");
+        window.location.href = "login.html";
+    }
+
+    // 📊 Load Stats
+    async function loadStats() {
+        try {
+            const res = await fetch("http://localhost:8080/api/feedback/admin/stats", {
+                headers: getAuthHeaders()
+            });
+
+            if (res.status === 401 || res.status === 403) return handleUnauthorized();
+            if (!res.ok) throw new Error("Failed to load stats");
+
+            const data = await res.json();
+
+            document.getElementById("totalCount").innerText = data.totalFeedback || 0;
+            document.getElementById("todayCount").innerText = data.todayFeedback || 0;
+
+        } catch (err) {
+            console.error("Stats Error:", err);
+        }
+    }
+
+    // 📋 Load Feedback
+    async function loadFeedback() {
+    try {
+        const search = document.getElementById("searchInput").value.toLowerCase();
+        const category = document.getElementById("categoryFilter").value;
+
+        let url = "";
+        let isCategoryMode = false;
+
+        // 👉 If category selected → use category API
+        if (category) {
+            url = `http://localhost:8080/api/feedback/category/${category}`;
+            isCategoryMode = true;
+        } else {
+            url = `http://localhost:8080/api/feedback/admin/all?page=${currentPage}&size=5&sortBy=createdAt&direction=desc`;
+        }
+
+        const res = await fetch(url, {
+            headers: getAuthHeaders()
+        });
+
+        if (res.status === 401 || res.status === 403) return handleUnauthorized();
+        if (!res.ok) throw new Error("Failed to fetch feedback");
+
+        const data = await res.json();
+
+        // ✅ Handle both API types
+        if (isCategoryMode) {
+            // category API returns array
+            let filtered = data;
+
+            // 🔍 apply search manually
+            if (search) {
+                filtered = filtered.filter(f =>
+                    (f.content || "").toLowerCase().includes(search)
+                );
+            }
+
+            allFeedbacks = filtered;
+            isLastPage = true;
+
+            renderTable(allFeedbacks);
+
+            document.getElementById("pageInfo").innerText = "Filtered Results";
+            document.getElementById("prevBtn").disabled = true;
+            document.getElementById("nextBtn").disabled = true;
+
+        } else {
+            // normal paginated API
+            allFeedbacks = data.content || [];
+            isLastPage = data.last;
+
+            // 🔍 apply search on current page
+            let filtered = allFeedbacks;
+            if (search) {
+                filtered = allFeedbacks.filter(f =>
+                    (f.content || "").toLowerCase().includes(search)
+                );
+            }
+
+            renderTable(filtered);
+
+            document.getElementById("pageInfo").innerText =
+                "Page: " + (currentPage + 1) + " of " + data.totalPages;
+
+            document.getElementById("prevBtn").disabled = currentPage === 0;
+            document.getElementById("nextBtn").disabled = isLastPage;
+        }
+
+    } catch (err) {
+        console.error("Stats Error:", err);
+        showToast("Failed to load stats", "error");
+
+    }
+}
+
+    // 🧾 Render Table
+    function renderTable(feedbacks) {
+    const table = document.getElementById("feedbackTable");
+
+    if (feedbacks.length === 0) {
+        table.innerHTML = `
+        <tr>
+            <td colspan="5" style="text-align:center; padding:20px; color:#888;">
+                No feedback found
+            </td>
+        </tr>`;
+        return;
+    }
+
+    let rows = "";
+
+    feedbacks.forEach(f => {
+        const isToday =
+            new Date(f.createdAt).toDateString() === new Date().toDateString();
+
+        rows += `
+            <tr style="${isToday ? 'background-color:#e6f7ff;' : ''}">
+                <td>${f.id}</td>
+                <td>${f.category}</td>
+                <td>${f.content}</td>
+                <td>${f.createdAt ? new Date(f.createdAt).toLocaleString() : "N/A"}</td>
+                <td>
+                    <button class="delete-btn" onclick="deleteFeedback(${f.id})">Delete</button>
+                </td>
+            </tr>
+        `;
+    });
+
+    table.innerHTML = rows;
+}
+    function showToast(message, type = "success") {
+    const toast = document.getElementById("toast");
+
+    toast.className = "toast";
+    toast.offsetHeight;
+
+    toast.innerText = message;
+    toast.className = `toast show ${type}`;
+
+    setTimeout(() => {
+        toast.className = "toast";
+    }, 3000);
+}
+
+    window.addEventListener("DOMContentLoaded", () => {
+    const message = localStorage.getItem("toastMessage");
+
+    if (message) {
+        showToast(message, "success"); // ✅ show toast
+        localStorage.removeItem("toastMessage");
+    }
+});
+
+    // 🗑 Delete
+    async function deleteFeedback(id) {
+        if (!confirm("Are you sure you want to delete this feedback?")) return;
+
+        try {
+            const res = await fetch(`http://localhost:8080/api/feedback/delete/${id}`, {
+                method: "DELETE",
+                headers: getAuthHeaders()
+            });
+
+            if (res.status === 401 || res.status === 403) return handleUnauthorized();
+            if (!res.ok) throw new Error("Delete failed");
+
+            showToast("Feedback deleted successfully!", "success");
+
+            loadFeedback();
+            loadStats();
+
+        } catch (err) {
+            console.error("Delete Error:", err);
+            showToast("Failed to delete feedback", "error");
+        }
+    }
+
+    // 🔁 Pagination
+    function nextPage() {
+        if (!isLastPage) {
+            currentPage++;
+            loadFeedback();
+        }
+    }
+
+    function prevPage() {
+        if (currentPage > 0) {
+            currentPage--;
+            loadFeedback();
+        }
+    }
+
+    // 🔓 Logout
+    function logout() {
+    showToast("Logged out successfully", "success");
+
+    setTimeout(() => {
+        localStorage.clear();
+        window.location.href = "index.html";
+    }, 1000);
+}
+
+
+    document.getElementById("searchInput").addEventListener("input", () => {
+    currentPage = 0;
     loadFeedback();
 });
 
-function loadFeedback() {
-    fetch("/api/feedback/all") // relative path works because frontend & backend on same app
-        .then(response => {
-            if (!response.ok) throw new Error("Failed to load feedback. Status: " + response.status);
-            return response.json();
-        })
-        .then(data => {
-            const feedbackBody = document.getElementById("feedbackBody");
-            feedbackBody.innerHTML = "";
-            data.forEach((item, index) => {
-                const row = document.createElement("tr");
-                row.innerHTML = `
-                    <td>${index + 1}</td>
-                    <td>${item.message}</td>
-                    <td>${new Date(item.timestamp || item.submittedAt).toLocaleString([], {
-                        year: 'numeric',
-                        month: 'short',
-                        day: 'numeric',
-                        hour: 'numeric',
-                        minute: '2-digit',
-                        hour12: true
-                    })}</td>
-                `;
-                feedbackBody.appendChild(row);
-            });
-        })
-        .catch(error => {
-            console.error("Error loading feedback:", error);
-            alert("Failed to load feedback.");
-        });
-}
-function logout() {
-    window.location.href = "index.html";
-}
+document.getElementById("categoryFilter").addEventListener("change", () => {
+    currentPage = 0;
+    loadFeedback();
+});
+    // 🚀 Init
+    loadStats();
+    loadFeedback();
+
+    // 🔄 Auto Refresh
+    setInterval(() => {
+        loadStats();
+    }, 10000);
 </script>
+
 </body>
 </html>

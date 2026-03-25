@@ -9,18 +9,54 @@
 <body>
 
 <header>
-    <div class="logo" onclick="location.href='index.html'" style="cursor: pointer;">🗣️ Feedback Portal</div>
-    <button class="logout-btn" onclick="logout()">Logout</button>
+    <nav class="navbar">
+        <div class="logo">
+            💬 <span class="brand">Feedback</span>
+            <span class="sub">Portal</span>
+        </div>
+
+        <div class="nav-buttons">
+            <button class="btn btn-danger" onclick="logout()">Logout</button>
+        </div>
+    </nav>
 </header>
 
 <div class="container">
     <div class="form-container">
         <h2>Submit Feedback</h2>
+        <p class="sub-text">We value your opinion 💡</p>
+
         <form id="feedbackForm">
-            <textarea id="feedback" rows="6" placeholder="Enter your feedback..." required></textarea>
-            <button type="submit">Submit</button>
+
+            <!-- Feedback -->
+            <label for="feedback">Your Feedback</label>
+            <div class="input-group">
+                <textarea id="feedback" rows="5" maxlength="300"
+                          placeholder="Write your feedback here..." required></textarea>
+            </div>
+
+            <!-- Progress bar -->
+            <div class="progress-bar">
+                <div id="progress"></div>
+            </div>
+
+            <small id="charCount">0 / 300</small>
+
+            <!-- Category -->
+            <label for="category">Category</label>
+            <select id="category" required>
+                <option value="">Choose category</option>
+                <option value="Academic">Academic</option>
+                <option value="Infrastructure">Infrastructure</option>
+                <option value="Faculty">Faculty</option>
+                <option value="Other">Other</option>
+            </select>
+
+            <!-- Submit -->
+            <button type="submit" id="submitBtn" class="btn btn-primary">
+                Submit Feedback
+            </button>
         </form>
-        <div id="responseMessage" class="success-message"></div>
     </div>
 </div>
 
@@ -28,37 +64,118 @@
     <p>&copy; 2025 Feedback Portal. All rights reserved.</p>
 </footer>
 
-<script>
-    function logout() {
-        window.location.href = 'index.html';
-    }
+<!-- Toast -->
+<div id="toast" class="toast"></div>
 
-    document.getElementById('feedbackForm').addEventListener('submit', function(e) {
+<script>
+    const feedbackInput = document.getElementById("feedback");
+    const charCount = document.getElementById("charCount");
+    const progress = document.getElementById("progress");
+
+    // Character count + progress bar
+    feedbackInput.addEventListener("input", () => {
+        const length = feedbackInput.value.length;
+        charCount.innerText = length + " / 300";
+        progress.style.width = (length / 300) * 100 + "%";
+    });
+
+    // 🔓 Logout
+    function logout() {
+    showToast("Logged out successfully", "success");
+
+    setTimeout(() => {
+        localStorage.clear();
+        window.location.href = "index.html";
+    }, 1000);
+}
+
+
+
+    // ✅ Toast function (FIXED)
+    function showToast(message, type = "success") {
+    const toast = document.getElementById("toast");
+
+    // reset classes
+    toast.className = "toast";
+
+    // set message
+    toast.textContent = message;
+
+    // apply type
+    toast.classList.add("show", type);
+
+    setTimeout(() => {
+        toast.classList.remove("show");
+    }, 3000);
+}
+
+    // Show toast after redirect
+    window.addEventListener("load", () => {
+        const message = localStorage.getItem("toastMessage");
+
+        if (message) {
+            showToast(message);
+            localStorage.removeItem("toastMessage");
+        }
+    });
+
+    // Form submit
+    document.getElementById('feedbackForm').addEventListener('submit', async function(e) {
         e.preventDefault();
 
-        const feedback = document.getElementById('feedback').value;
+        const feedback = feedbackInput.value.trim();
+        const category = document.getElementById('category').value;
+        const button = document.getElementById('submitBtn');
 
-        fetch('/api/feedback/submit', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ message: feedback })
-        })
-        .then(async response => {
-            const text = await response.text();
+        if (!feedback || !category) {
+            showToast("⚠ Please enter feedback and select category", "error");
+            return;
+        }
+
+        const token = localStorage.getItem("token");
+
+        if (!token) {
+            window.location.href = "login.html";
+            return;
+        }
+
+        button.disabled = true;
+        button.innerText = "Submitting...";
+
+        try {
+            const response = await fetch('http://localhost:8080/api/feedback/submit', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + token   // ✅ FIXED
+                },
+                body: JSON.stringify({
+                    content: feedback,
+                    category: category
+                })
+            });
+
+            const data = await response.json();
 
             if (!response.ok) {
-                throw new Error(text || 'Failed to submit feedback');
+                throw new Error(data.message || 'Failed');
             }
-            alert("✅ " + text);
-            console.log("Feedback submitted successfully:", text);
-            document.getElementById('feedback').value = '';
-        })
-        .catch(error => {
-            alert("❌ " + error.message);
-            console.error('Error:', error);
-        });
+
+            // ✅ Success toast
+            showToast("Feedback submitted successfully!");
+
+            // Reset form
+            feedbackInput.value = '';
+            document.getElementById('category').value = '';
+            charCount.innerText = "0 / 300";
+            progress.style.width = "0%";
+
+        } catch (error) {
+            showToast("❌ " + error.message, "error");
+        } finally {
+            button.disabled = false;
+            button.innerText = "Submit Feedback";
+        }
     });
 </script>
 

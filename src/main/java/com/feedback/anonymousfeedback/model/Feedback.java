@@ -6,37 +6,38 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "feedback")
 public class Feedback {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String message;
-    private LocalDateTime timestamp;
+    private String content;
+    private boolean deleted = false;
+    private String category;
 
-    // Constructors
-    public Feedback() {
-        this.timestamp = LocalDateTime.now();
-    }
 
-    public Feedback(String message) {
-        this.message = message;
-        this.timestamp = LocalDateTime.now();
-    }
 
-    // Getters and setters
+    private LocalDateTime createdAt = LocalDateTime.now();
+
+    // Getters and Setters
     public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
 
-    public String getMessage() { return message; }
-    public void setMessage(String message) { this.message = message; }
+    public String getContent() { return content; }
+    public void setContent(String content) { this.content = content; }
 
-    public LocalDateTime getSubmittedAt() { return timestamp; }
-    public void setSubmittedAt(LocalDateTime timestamp) {
-        this.timestamp = timestamp;
-    }
-    @Override
-    public String toString() {
-        return "Feedback{id=" + id + ", feedback='" + message + "', submittedAt=" + timestamp + '}';
+    public boolean isDeleted() {
+        return deleted;
     }
 
+    public void setDeleted(boolean deleted) {
+        this.deleted = deleted;
+    }
 
+    public String getCategory() { return category; }
+    public void setCategory(String category) { this.category = category; }
+
+
+    public LocalDateTime getCreatedAt() { return createdAt; }
+    public void setCreatedAt(LocalDateTime createdAt) { this.createdAt = createdAt; }
 }

@@ -1,31 +1,97 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>Feedback Portal</title>
-    <link rel="stylesheet" href="style.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anonymous Feedback Portal</title>
+    <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
 <header>
-    <div class="logo">Feedback Portal</div>
+    <div class="navbar">
+            <div class="logo">
+                💬 <span class="brand">Feedback</span>
+                <span class="sub">Portal</span>
+            </div>
+            <div class="nav-buttons" id="navButtons">
+                a href="register.html" class="btn btn-secondary">Register</a>
+                <a href="login.html" class="btn btn-primary">Login</a>
+            </div>
+    </div>
 </header>
 
 <div class="container">
+
     <div class="welcome-box">
+
         <h2>Welcome to the Feedback Portal!</h2>
-        <p>Share your thoughts freely and honestly. Your identity remains confidential.</p>
-        <div class="nav-buttons">
-            <button onclick="location.href='register.html'">Register</button>
-            <button onclick="location.href='login.html'">Login</button>
-        </div>
+
+        <p>
+            Share your thoughts freely and honestly.
+            Your identity remains confidential.
+        </p>
+
+        <!-- 🔥 CTA Button -->
+        <button class="btn btn-primary" onclick="handleMainAction()">
+            Get Started
+        </button>
+
     </div>
+
 </div>
 
 <footer>
-    &copy; 2025 Feedback Portal. All rights reserved.
+    © 2025 Feedback Portal. All rights reserved.
 </footer>
+
+<script>
+    const nav = document.getElementById("navButtons");
+
+    const token = localStorage.getItem("token");
+    const role = localStorage.getItem("role");
+    const username = localStorage.getItem("username");
+
+    function logout() {
+        localStorage.clear();
+        window.location.href = "login.html";
+    }
+
+    function handleMainAction() {
+        if (!token) {
+            window.location.href = "login.html";
+        } else if (role === "ADMIN") {
+            window.location.href = "admin.html";
+        } else {
+            window.location.href = "feedback.html";
+        }
+    }
+
+    if (!token) {
+        // 🔓 Not logged in
+        nav.innerHTML = `
+            <button class="btn btn-secondary" onclick="location.href='register.html'">Register</button>
+            <button class="btn btn-primary" onclick="location.href='login.html'">Login</button>
+        `;
+    } else {
+        // 🔐 Logged in
+        if (role === "ADMIN") {
+            nav.innerHTML = `
+                <span class="user">👋 Welcome, ${username}</span>
+                <button class="btn btn-primary" onclick="location.href='admin.html'">Dashboard</button>
+                <button class="btn btn-danger" onclick="logout()">Logout</button>
+            `;
+        } else {
+            nav.innerHTML = `
+                <span class="user">👋 Welcome, ${username}</span>
+                <button class="btn btn-primary" onclick="location.href='feedback.html'">Submit Feedback</button>
+                <button class="btn btn-danger" onclick="logout()">Logout</button>
+            `;
+        }
+    }
+</script>
 
 </body>
 </html>

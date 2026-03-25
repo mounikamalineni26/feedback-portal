@@ -6,20 +6,33 @@
     <title>Login</title>
     <link rel="stylesheet" href="style.css" />
 </head>
+
 <body>
 
 <header>
-    <div class="logo" onclick="location.href='index.html'" style="cursor: pointer;">🗣️ Feedback Portal</div>
+    <div class="navbar">
+        <div class="logo">
+            💬 <span class="brand">Feedback</span>
+            <span class="sub">Portal</span>
+        </div>
+    </div>
 </header>
 
 <div class="container">
     <div class="form-container">
         <h2>Login</h2>
+
         <form id="loginForm">
             <input type="text" id="username" placeholder="Username" required />
             <input type="password" id="password" placeholder="Password" required />
-            <button type="submit">Login</button>
-            <p class="link-text">Don't have an account? <a href="register.html">Register</a></p>
+
+            <button type="submit" id="loginBtn" class="btn btn-primary">
+                Login
+            </button>
+
+            <p class="link-text">
+                Don't have an account? <a href="register.html">Register</a>
+            </p>
         </form>
     </div>
 </div>
@@ -28,34 +41,91 @@
     <p>&copy; 2025 Feedback Portal. All rights reserved.</p>
 </footer>
 
+<!-- Toast -->
+<div id="toast" class="toast"></div>
+
 <script>
+    const loginBtn = document.getElementById("loginBtn");
+
+    // ✅ Improved Toast (FIXED)
+    function showToast(message, type = "success") {
+    const toast = document.getElementById("toast");
+
+    toast.textContent = message;
+
+    // ✅ reset completely
+    toast.className = "toast";
+
+    // ✅ apply correct classes
+    toast.classList.add("show", type);
+
+    setTimeout(() => {
+        toast.classList.remove("show");
+    }, 3000);
+}
+    window.addEventListener("DOMContentLoaded", () => {
+        const message = localStorage.getItem("toastMessage");
+
+        if (message) {
+            showToast(message,"success");
+            localStorage.removeItem("toastMessage");
+        }
+    });
+
     document.getElementById('loginForm').addEventListener('submit', async function (e) {
-      e.preventDefault();
+        e.preventDefault();
 
-      const username = document.getElementById('username').value.trim();
-      const password = document.getElementById('password').value;
+        const username = document.getElementById('username').value.trim();
+        const password = document.getElementById('password').value;
 
-      const response = await fetch("/api/auth/login", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ username, password })
-      });
-
-      if (response.ok) {
-        const data = await response.json();
-        localStorage.setItem("token", data.token);
-        localStorage.setItem("username", username);
-
-        // Simple role check (customize based on your backend response)
-        if (username.toLowerCase() === "admin") {
-          window.location.href = "admin.html";
-        } else {
-          window.location.href = "feedback.html";
+        // ✅ Validation
+        if (!username || !password) {
+            showToast("⚠ Please enter username and password", "error");
+            return;
         }
 
-      } else {
-        alert("Invalid username or password.");
-      }
+        // 🔄 Loading state
+        loginBtn.disabled = true;
+        loginBtn.innerText = "Logging in...";
+
+        try {
+            const response = await fetch("http://localhost:8080/auth/login", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ username, password })
+            });
+
+            const data = await response.json();
+
+            if (response.ok) {
+                // ✅ Store auth data
+                localStorage.setItem("token", data.token);
+                localStorage.setItem("username", data.username);
+                localStorage.setItem("role", data.role);
+
+                // ✅ Store toast message for next page
+                localStorage.setItem("toastMessage", "Logged in successfully!");
+
+                // 🔁 Redirect based on role
+                if (data.role === "ADMIN") {
+                    window.location.href = "admin.html";
+                } else {
+                    window.location.href = "feedback.html";
+                }
+
+            } else {
+                showToast(data.message || "Invalid username or password", "error");
+            }
+
+        } catch (err) {
+            console.error("Login error:", err);
+            showToast("Server error. Please try again.", "error");
+
+        } finally {
+            // 🔁 Reset button
+            loginBtn.disabled = false;
+            loginBtn.innerText = "Login";
+        }
     });
 </script>
 
