@@ -63,28 +63,24 @@ Student → Submit Feedback → Stored in Database → Admin Dashboard → View 
    ```
 
 ---
-
 ## 🖼️ Screenshots
 
-### 🔹 Home Page
+### Home Page
+![Home](images/01-home-page.png)
 
-![Home Page](images/index-page.png)
+### Login Page
+![Login](images/02-login-page.png)
 
-### 🔹 Register Page
+### Register Page
+![Register](images/03-register-page.png)
 
-![Register Page](images/register-page.png)
+### Submit Feedback
+![Feedback](images/04-submit-feedback.png)
 
-### 🔹 Login Page
+### Admin Dashboard
+![Dashboard](images/05-admin-dashboard.png)
 
-![Login Page](images/login-page.png)
 
-### 🔹 Admin Dashboard
-
-![Admin Dashboard](images/admin-dashboard.png)
-
-### 🔹 Feedback Form
-
-![Feedback Form](images/feedback-form.png)
 
 ---
 
