@@ -10,7 +10,6 @@ import org.springframework.data.domain.Sort;
 import java.time.LocalDateTime;
 import org.springframework.stereotype.Service;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class FeedbackService {
@@ -42,13 +41,7 @@ public class FeedbackService {
     }
 
 
-    // ✅ Get only ACTIVE feedback
-    public List<Feedback> getAllActiveFeedback() {
-        return feedbackRepository.findAll()
-                .stream()
-                .filter(f -> !f.isDeleted())
-                .toList();
-    }
+
 
 
     // 🔍 Filter by category
@@ -65,4 +58,7 @@ public class FeedbackService {
         feedbackRepository.save(feedback);
     }
 
+    public List<Feedback> getAllActiveFeedback() {
+        return feedbackRepository.findByDeletedFalse();
+    }
 }

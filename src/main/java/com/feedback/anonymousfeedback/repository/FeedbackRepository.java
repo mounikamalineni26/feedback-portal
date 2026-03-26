@@ -25,5 +25,7 @@ public interface FeedbackRepository extends JpaRepository<Feedback, Long> {
     @Query("SELECT f FROM Feedback f WHERE f.category = :category AND f.deleted = false")
     List<Feedback> findByCategoryAndDeletedFalse(@Param("category") String category);
 
+    List<Feedback> findByDeletedFalse();
+
 
 }

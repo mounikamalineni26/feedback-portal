@@ -29,6 +29,27 @@
             <div class="card">Today's Feedback: <span id="todayCount">0</span></div>
         </div>
 
+        <!-- 🔥 Insight Line -->
+        <div class="insight-line" id="topInsight">
+            Loading insights...
+        </div>
+
+        <!-- 📊 Analytics -->
+        <div class="analytics">
+            <div class="insight-box">
+                <h3>📊 Key Insights</h3>
+                <ul id="insightList"></ul>
+                <div id="insightBox" class="insight-warning"></div>
+            </div>
+
+            <div class="chart-box">
+                <canvas id="chart"></canvas>
+            </div>
+        </div>
+
+        <!-- 🎨 Category Cards -->
+        <div class="category-cards" id="categoryCards"></div>
+
         <!-- Search + Filter -->
         <div class="controls">
             <input type="text" id="searchInput" placeholder="Search feedback...">
@@ -38,7 +59,7 @@
                 <option value="Academic">Academic</option>
                 <option value="Infrastructure">Infrastructure</option>
                 <option value="Faculty">Faculty</option>
-                <option value="Other">Other</option>
+                <option value="Others">Others</option>
             </select>
         </div>
 
@@ -72,10 +93,13 @@
 
 <div id="toast" class="toast"></div>
 
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2"></script>
 <script>
     let currentPage = 0;
     let allFeedbacks = [];
     let isLastPage = false;
+    let chartInstance = null;
 
     // 🔐 Auth Headers
     function getAuthHeaders() {
@@ -276,6 +300,7 @@
 
             loadFeedback();
             loadStats();
+            loadAnalytics();
 
         } catch (err) {
             console.error("Delete Error:", err);
@@ -297,7 +322,201 @@
             loadFeedback();
         }
     }
+    // analytics
+    async function loadAnalytics() {
+    try {
+        const res = await fetch("http://localhost:8080/api/feedback/admin/analytics", {
+            headers: getAuthHeaders()
+        });
 
+        if (res.status === 401 || res.status === 403) return handleUnauthorized();
+
+        const data = await res.json();
+
+        const counts = data.counts;
+        const topCategory = data.topCategory;
+
+        // 🔥 Insight line
+        document.getElementById("topInsight").innerText =
+            `Most issues are reported in ${topCategory} category`;
+
+
+        let insightHTML = "";
+
+
+// 🔴 Highest
+insightHTML += `<li style="font-weight:600;">🔴 Most complaints: <b>${topCategory} (${counts[topCategory]})</b></li>`;
+
+const values = Object.values(counts);
+const max = Math.max(...values);
+const min = Math.min(...values);
+
+const moderate = Object.entries(counts)
+    .filter(([k, v]) => v >= max * 0.5 && v < max)
+    .map(([k]) => k);
+
+const least = Object.entries(counts)
+    .filter(([k, v]) => v === min)
+   .map(([k]) => k);
+
+insightHTML += `<li>🟡 Moderate: <b>${
+  moderate.length ? moderate.join(", ") : "None"
+}</b></li>`;
+
+
+insightHTML += `<li>🟢 Least Issues: <b>${
+    least.length ? least.join(", ") : "None"
+}</b></li>`;
+
+document.getElementById("insightList").innerHTML = insightHTML;
+
+// ✅ NEW SMART INSIGHT WITH PERCENTAGE
+const total = Object.values(counts).reduce((a, b) => a + b, 0);
+
+const percentage = total > 0
+    ? Math.round((counts[topCategory] / total) * 100)
+    : 0;
+
+let message = `${topCategory} issues are highest (${percentage}%) — requires immediate attention`;
+
+document.getElementById("insightBox").innerHTML =
+    `⚠️ <b>Insight:</b><br>${message}`;
+
+        // 🎨 Cards
+const container = document.getElementById("categoryCards");
+container.innerHTML = "";
+
+const orderedLabels = ["Faculty", "Academic", "Infrastructure", "Others"];
+
+orderedLabels.forEach(key => {
+    let count = counts[key] || 0;
+
+    let color = "green";
+    let level = "Low";
+
+    if (count === max && count > 0) {
+        color = "red";
+        level = "High";
+    } else if (count > 0) {
+        color = "orange";
+        level = "Moderate";
+    }
+
+    container.innerHTML += `
+        <div class="card" style="border-top:5px solid ${color}">
+            <h3>${key}</h3>
+            <p>Complaints: ${count}</p>
+            <p style="color:${color}">${level}</p>
+        </div>
+    `;
+});
+
+        // 📊 Chart
+if (chartInstance) {
+    chartInstance.destroy();
+}
+const orderedData = orderedLabels.map(label => counts[label] || 0);
+
+chartInstance = new Chart(document.getElementById("chart"), {
+    type: "bar",
+    data: {
+        labels: orderedLabels,
+        datasets: [{
+            label: "", // ❌ remove legend box
+            data: orderedData,
+            backgroundColor: [
+                "#ff4d4d",
+                "#ffd43b",
+                "#51cf66",
+                "#ced4da"
+            ],
+            borderRadius: 8,
+            barThickness: 45
+        }]
+    },
+    options: {
+        responsive: true,
+        maintainAspectRatio: false,
+
+        layout: {
+            padding: {
+                top: 10,
+                left: 10,
+                right: 10
+            }
+        },
+
+        plugins: {
+            legend: {
+                display: false
+            },
+
+            title: {
+                display: true,
+                text: "📊 Feedback by Category",
+                align: "center",
+                padding: {
+                    bottom: 30
+                },
+                font: {
+                    size: 16,
+                    weight: "bold"
+                }
+            },
+
+            datalabels: {
+                anchor: "end",
+                align: "top",
+                offset: 6,
+                font: {
+                    weight: "bold",
+                    size: 14
+
+                },
+                color: "#000000"
+            }
+        },
+
+        scales: {
+            x: {
+                grid: { display: false },
+                ticks: {
+                    color: "#000000",
+                    font: {
+                        weight: "bold"
+                    }
+                }
+            },
+
+            y: {
+                beginAtZero: true,
+                ticks: {
+                    stepSize: 1,
+                    color: "#000000",
+                    font: {
+                      weight: "bold",
+                      size: 12
+                    }
+                },
+                title: {
+                    display: true,
+                    text: "Count",
+                    color: "#000000",
+                    font: {
+                       size: 14,
+                       weight: "bold"
+                    }
+                }
+            }
+        }
+    },
+
+    plugins: [ChartDataLabels]
+});
+} catch (err) {
+        console.error("Analytics Error:", err);
+    }
+}
     // 🔓 Logout
     function logout() {
     showToast("Logged out successfully", "success");
@@ -321,12 +540,15 @@ document.getElementById("categoryFilter").addEventListener("change", () => {
     // 🚀 Init
     loadStats();
     loadFeedback();
+    loadAnalytics();
 
     // 🔄 Auto Refresh
     setInterval(() => {
         loadStats();
+        loadAnalytics();
     }, 10000);
 </script>
+
 
 </body>
 </html>

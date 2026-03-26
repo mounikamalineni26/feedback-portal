@@ -13,6 +13,9 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 
 import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @CrossOrigin(origins = "http://localhost:63342")
 @RestController
@@ -79,5 +82,40 @@ public class FeedbackController {
     @GetMapping("/count")
     public ResponseEntity<Long> getTotalActiveFeedback() {
         return ResponseEntity.ok(feedbackService.getTotalFeedback());
+    }
+
+    @PreAuthorize("hasRole('ADMIN')")
+    @GetMapping("/admin/analytics")
+    public ResponseEntity<Map<String, Object>> getAnalytics() {
+
+        List<Feedback> list = feedbackService.getAllActiveFeedback();
+
+        // ✅ Default categories
+        Map<String, Long> counts = new HashMap<>();
+        counts.put("Faculty", 0L);
+        counts.put("Academic", 0L);
+        counts.put("Infrastructure", 0L);
+        counts.put("Others", 0L);
+
+        // ✅ Count logic
+        list.forEach(f -> {
+            counts.put(
+                    f.getCategory(),
+                    counts.getOrDefault(f.getCategory(), 0L) + 1
+            );
+        });
+
+        // ✅ Top category
+        String topCategory = counts.entrySet().stream()
+                .max(Map.Entry.comparingByValue())
+                .map(Map.Entry::getKey)
+                .orElse("None");
+
+        // ✅ Final response
+        Map<String, Object> response = new HashMap<>();
+        response.put("counts", counts);
+        response.put("topCategory", topCategory);
+
+        return ResponseEntity.ok(response);
     }
 }
