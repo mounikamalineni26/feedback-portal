@@ -1,120 +1,183 @@
-# 📝 Feedback Portal
+# 📝 Feedback Portal  
 
-A full-stack web application where **students can submit anonymous feedback** to the **Head of Department (HOD)** without revealing their identity. The HOD can securely **view, manage, and act on feedback** through an admin dashboard.
-
----
-
-## 🎯 Use Cases
-
-### 👩‍🎓 For Students:
-
-* ✅ Login and submit genuine feedback without fear of being identified
-* ✅ Share opinions about classes, teaching, labs, or facilities
-* ✅ No personal information (such as name or ID) is stored with the feedback
-
-### 👨‍🏫 For HODs (Admins):
-
-* ✅ Login with secure credentials
-* ✅ View all feedback submitted by students
-* ✅ Use feedback insights to improve academic or administrative processes
-* ✅ Manage and delete feedback when necessary
-
----
-
-## 📌 Features
-
-* 🔒 Secure Login & Registration
-* 🧾 Anonymous Feedback Submission
-* 🧑‍💼 Admin (HOD) Dashboard to View Feedback
-* 🔍 Search and Filter Feedback
-* 🗑️ Delete Feedback Option
-* 🌐 Spring Boot REST API
-* 💾 MySQL Database Integration
-
----
-
-## 🔄 Application Flow
-
-Student → Submit Feedback → Stored in Database → Admin Dashboard → View / Manage Feedback
-
----
-
-## ⚙️ Setup Instructions
-
-1. Clone the repository
-
-   ```
-   git clone https://github.com/mounikamalineni26/feedback-portal.git
-   ```
-
-2. Open the project in IntelliJ IDEA
-
-3. Configure MySQL Database
-
-   * Create a database named: `anonymous_feedback_db`
-   * Update `application.properties` with your MySQL username & password
-
-4. Run the Spring Boot application
-
-5. Open your browser and visit:
-
-   ```
-   http://localhost:8080
-   ```
-
----
-## 🖼️ Screenshots
-
-### Home Page
-![Home](images/01-home-page.png)
-
-### Login Page
-![Login](images/02-login-page.png)
-
-### Register Page
-![Register](images/03-register-page.png)
-
-### Submit Feedback
-![Feedback](images/04-submit-feedback.png)
-
-### Admin Dashboard
-![Dashboard](images/05-admin-dashboard.png)
-
+![Spring Boot](https://img.shields.io/badge/SpringBoot-Backend-green)  
+![MySQL](https://img.shields.io/badge/MySQL-Database-blue)  
+![Frontend](https://img.shields.io/badge/HTML_CSS_JS-Frontend-orange)  
 
 
 ---
 
-## 🛠️ Tech Stack
+## 🚀 Project Overview  
 
-* **Frontend**: HTML, CSS, JavaScript
-* **Backend**: Java, Spring Boot, Spring Security
-* **Database**: MySQL
-* **Tools**: IntelliJ IDEA, Postman, MySQL Workbench
+**Feedback Portal** is a full-stack web application built using **Spring Boot** and **MySQL** that enables students to submit anonymous feedback securely.  
 
----
-
-## 🔐 Default Admin (HOD) Login
-
-* **Username**: `admin`
-* **Password**: `admin123`
-
-⚠️ These credentials are for testing purposes only. Use secure authentication in production.
+The system follows a **privacy-first design** while allowing administrators (HODs) to **analyze, manage, and take action on feedback through an interactive dashboard**.  
 
 ---
 
-## ✅ Testing
+## ❗ Problem Statement  
 
-* All backend APIs tested using **Postman**
-* End-to-end workflow verified for student submission and admin view
+In many institutions, students hesitate to share honest feedback due to fear of being identified.  
+
+This project solves that problem by providing a **secure and anonymous platform** for open communication between students and administration.  
+
+---
+
+## ⭐ Key Highlights  
+
+- 🚀 Developed a complete **end-to-end full-stack application**  
+- 🔐 Implemented **anonymous feedback system** (privacy-focused)  
+- 🎨 Designed a **responsive UI** using HTML, CSS, JavaScript  
+- 🔗 Integrated backend using **RESTful APIs**  
+- 📊 Built an **analytics dashboard with insights & visualization**  
+- 🧠 Focused on solving a **real-world communication gap**  
 
 ---
 
-## 🤝 Author
+## 🎯 Use Cases  
 
-**Mounika Malineni**
+### 👩‍🎓 For Students:  
 
-📧 [mounikamalineni63@gmail.com](mailto:mounikamalineni63@gmail.com)
-🔗 [GitHub Profile](https://github.com/mounikamalineni26)
-🔗 [LinkedIn Profile](https://www.linkedin.com/in/mounikamalineni)
+* ✅ Submit honest feedback anonymously without fear  
+* ✅ Share opinions on academics, faculty, labs, or facilities  
+* ✅ No personal data (name, ID) is stored  
+
+### 👨‍🏫 For HODs (Admins):  
+
+* ✅ Secure login access  
+* ✅ View and manage all feedback  
+* ✅ Filter and search for better insights  
+* ✅ Take action to improve institutional processes  
+* ✅ Delete inappropriate or resolved feedback  
 
 ---
+
+## 🚀 Core Features  
+
+* 🔒 Secure Login & Registration  
+* 🧾 Anonymous Feedback Submission  
+* 🧑‍💼 Admin Dashboard  
+* 🔍 Search and Filter Feedback  
+* 🗑️ Delete Feedback Option  
+* 🌐 REST API (Spring Boot)  
+* 💾 MySQL Database Integration  
+
+---
+
+## 📊 Analytics Dashboard  
+
+The application includes an **interactive analytics dashboard** that converts raw feedback into **actionable insights for data-driven decisions**.  
+
+### 🔍 Dashboard Features  
+
+* 📈 **Real-time Metrics** – Total feedback & today’s submissions  
+* 🏷️ **Category-wise Analysis** – Distribution of feedback across categories  
+* 📊 **Data Visualization** – Bar chart for quick understanding  
+* 🧠 **Key Insights Section** – Highlights most reported issues  
+* ⚠️ **Priority Indicators** – Marks categories as High / Moderate  
+* 🔎 **Search & Filtering** – Enables detailed feedback analysis  
+
+### 💡 Impact  
+
+- Helps admins **identify critical issues quickly**  
+- Enables **data-driven decision making**  
+- Transforms feedback into **actionable insights**  
+
+---
+
+## 🔄 Application Flow  
+
+Student → Submit Feedback → Stored in MySQL Database → Admin Dashboard → View / Filter / Manage Feedback  
+
+---
+
+## 🔐 Security Features  
+
+- 🔑 Password encryption using **BCrypt**  
+- 👤 Role-based authentication & authorization  
+- 🔐 Secured APIs using **Spring Security**  
+- 🚫 Ensures **complete anonymity of users**  
+
+---
+
+## ⚙️ Setup Instructions  
+
+### 1. Clone the repository  
+```bash
+git clone https://github.com/mounikamalineni26/feedback-portal.git
+```
+
+### 2. Open in IDE  
+- Import into IntelliJ IDEA  
+
+### 3. Configure MySQL  
+- Create database:  
+```sql
+anonymous_feedback_db
+```
+
+- Update application.properties  
+```properties
+spring.datasource.username=your_username  
+spring.datasource.password=your_password  
+```
+
+### 4. Run the application  
+
+### 5. Open  
+http://localhost:8080  
+
+---
+
+## 🖼️ Screenshots  
+
+### Home Page  
+![Home](images/01-home-page.png)  
+
+### Login Page  
+![Login](images/02-login-page.png)  
+
+### Register Page  
+![Register](images/03-register-page.png)  
+
+### Submit Feedback  
+![Feedback](images/04-submit-feedback.png)  
+
+### Admin Dashboard  
+![Dashboard](images/05-admin-dashboard.png)  
+
+---
+
+## 🛠️ Tech Stack  
+
+* **Frontend**: HTML, CSS, JavaScript  
+* **Backend**: Java, Spring Boot, Spring Security  
+* **Database**: MySQL  
+* **Tools**: IntelliJ IDEA, Postman, MySQL Workbench  
+* **Visualization**: Chart.js  
+
+---
+
+## 🔐 Default Admin Login  
+
+* Username: admin  
+* Password: admin123  
+
+⚠️ These credentials are for testing only. Use secure authentication in production.  
+
+---
+
+## ✅ Testing  
+
+* ✔ APIs tested using Postman  
+* ✔ End-to-end workflow verified  
+
+---
+
+## 🤝 Author  
+
+**Mounika Malineni**  
+
+📧 mounikamalineni63@gmail.com  
+🔗 https://github.com/mounikamalineni26  
+🔗 https://www.linkedin.com/in/mounikamalineni  
