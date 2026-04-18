@@ -1,4 +1,4 @@
-# AnonInsight (Anonymous Feedback & Analytics System) 
+# 🧠 AnonInsight – Anonymous Feedback & Analytics System
 
 ![Spring Boot](https://img.shields.io/badge/SpringBoot-Backend-green)  
 ![MySQL](https://img.shields.io/badge/MySQL-Database-blue)  
