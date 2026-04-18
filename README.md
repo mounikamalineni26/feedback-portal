@@ -1,4 +1,4 @@
-# 📝 Feedback Portal  
+# AnonInsight (Anonymous Feedback & Analytics System) 
 
 ![Spring Boot](https://img.shields.io/badge/SpringBoot-Backend-green)  
 ![MySQL](https://img.shields.io/badge/MySQL-Database-blue)  
@@ -9,7 +9,7 @@
 
 ## 🚀 Project Overview  
 
-**Feedback Portal** is a full-stack web application built using **Spring Boot** and **MySQL** that enables students to submit anonymous feedback securely.  
+**AnonInsight** is a full-stack web application built using **Spring Boot** and **MySQL** that enables students to submit anonymous feedback securely.  
 
 The system follows a **privacy-first design** while allowing administrators (HODs) to **analyze, manage, and take action on feedback through an interactive dashboard**.  
 
