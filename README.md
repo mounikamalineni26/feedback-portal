@@ -139,7 +139,7 @@ http://localhost:8080
 ### Submit Feedback  
 ![Feedback](images/04-submit-feedback.png)  
 
-### Admin Dashboard  
+### Admin Insights Dashboard  
 ![Dashboard](images/05-admin-dashboard.png)  
 
 ---
