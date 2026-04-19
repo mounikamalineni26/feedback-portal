@@ -1,104 +1,100 @@
 # 🧠 AnonInsight – Anonymous Feedback & Analytics System
 
-![Spring Boot](https://img.shields.io/badge/SpringBoot-Backend-green)  
-![MySQL](https://img.shields.io/badge/MySQL-Database-blue)  
-![Frontend](https://img.shields.io/badge/HTML_CSS_JS-Frontend-orange)  
-
-
----
-
-## 🚀 Project Overview  
-
-**AnonInsight** is a full-stack web application built using **Spring Boot** and **MySQL** that enables students to submit anonymous feedback securely.  
-
-The system follows a **privacy-first design** while allowing administrators (HODs) to **analyze, manage, and take action on feedback through an interactive dashboard**.  
+![Spring Boot](https://img.shields.io/badge/SpringBoot-Backend-green)
+![MySQL](https://img.shields.io/badge/MySQL-Database-blue)
+![Frontend](https://img.shields.io/badge/HTML_CSS_JS-Frontend-orange)
 
 ---
 
-## ❗ Problem Statement  
+## 🚀 Overview
 
-In many institutions, students hesitate to share honest feedback due to fear of being identified.  
+**AnonInsight** is a full-stack web application built using **Spring Boot** and **MySQL** that enables students to submit anonymous feedback securely.
 
-This project solves that problem by providing a **secure and anonymous platform** for open communication between students and administration.  
-
----
-
-## ⭐ Key Highlights  
-
-- 🚀 Developed a complete **end-to-end full-stack application**  
-- 🔐 Implemented **anonymous feedback system** (privacy-focused)  
-- 🎨 Designed a **responsive UI** using HTML, CSS, JavaScript  
-- 🔗 Integrated backend using **RESTful APIs**  
-- 📊 Built an **analytics dashboard with insights & visualization**  
-- 🧠 Focused on solving a **real-world communication gap**  
+It follows a **privacy-first design**, allowing students to share honest opinions while enabling administrators (HODs) to analyze feedback through an **interactive analytics dashboard**.
 
 ---
 
-## 🎯 Use Cases  
+## ❗ Problem Statement
 
-### 👩‍🎓 For Students:  
+In many institutions, students hesitate to provide honest feedback due to fear of identification.
 
-* ✅ Submit honest feedback anonymously without fear  
-* ✅ Share opinions on academics, faculty, labs, or facilities  
-* ✅ No personal data (name, ID) is stored  
-
-### 👨‍🏫 For HODs (Admins):  
-
-* ✅ Secure login access  
-* ✅ View and manage all feedback  
-* ✅ Filter and search for better insights  
-* ✅ Take action to improve institutional processes  
-* ✅ Delete inappropriate or resolved feedback  
+This system solves that problem by offering a **secure anonymous communication platform** between students and administration.
 
 ---
 
-## 🚀 Core Features  
+## ⭐ Key Highlights
 
-* 🔒 Secure Login & Registration  
-* 🧾 Anonymous Feedback Submission  
-* 🧑‍💼 Admin Dashboard  
-* 🔍 Search and Filter Feedback  
-* 🗑️ Delete Feedback Option  
-* 🌐 REST API (Spring Boot)  
-* 💾 MySQL Database Integration  
-
----
-
-## 📊 Analytics Dashboard  
-
-The application includes an **interactive analytics dashboard** that converts raw feedback into **actionable insights for data-driven decisions**.  
-
-### 🔍 Dashboard Features  
-
-* 📈 **Real-time Metrics** – Total feedback & today’s submissions  
-* 🏷️ **Category-wise Analysis** – Distribution of feedback across categories  
-* 📊 **Data Visualization** – Bar chart for quick understanding  
-* 🧠 **Key Insights Section** – Highlights most reported issues  
-* ⚠️ **Priority Indicators** – Marks categories as High / Moderate  
-* 🔎 **Search & Filtering** – Enables detailed feedback analysis  
-
-### 💡 Impact  
-
-- Helps admins **identify critical issues quickly**  
-- Enables **data-driven decision making**  
-- Transforms feedback into **actionable insights**  
+- 🚀 End-to-end full-stack application  
+- 🔐 Anonymous feedback system (privacy-focused)  
+- 🎨 Responsive frontend using HTML, CSS, JavaScript  
+- 🔗 REST API integration using Spring Boot  
+- 📊 Analytics dashboard with charts & insights  
+- 🧠 Real-world problem-solving approach  
 
 ---
 
-## 🔄 Application Flow  
+## 🎯 Use Cases
 
-Student → Submit Feedback → Stored in MySQL Database → Admin Dashboard → View / Filter / Manage Feedback  
+### 👩‍🎓 Students
+- Submit anonymous feedback safely  
+- Share opinions on academics, faculty, labs, facilities  
+- No personal data stored  
+
+### 👨‍🏫 Admin (HOD)
+- Secure login access  
+- View, filter, and manage feedback  
+- Identify key issues quickly  
+- Take corrective actions  
 
 ---
 
-## 🔐 Security Features  
+## 🚀 Features
 
-- 🔑 Password encryption using **BCrypt**  
-- 👤 Role-based authentication & authorization  
-- 🔐 Secured APIs using **Spring Security**  
-- 🚫 Ensures **complete anonymity of users**  
+- 🔒 Secure Login & Registration  
+- 🧾 Anonymous Feedback Submission  
+- 🧑‍💼 Admin Dashboard  
+- 🔍 Search & Filter Feedback  
+- 🗑️ Delete Feedback  
+- 📡 RESTful APIs (Spring Boot)  
+- 💾 MySQL Database Integration  
 
 ---
+
+## 📊 Analytics Dashboard
+
+Transforms raw feedback into **actionable insights**.
+
+### 🔍 Features
+- 📈 Real-time statistics  
+- 🏷️ Category-wise analysis  
+- 📊 Bar chart visualization (Chart.js)  
+- 🧠 Key insights section  
+- ⚠️ Priority tagging (High / Medium / Low)  
+- 🔎 Advanced filtering  
+
+### 💡 Impact
+- Helps identify critical issues faster  
+- Enables data-driven decision making  
+- Improves institutional transparency  
+
+---
+
+## 🔄 System Flow
+
+Student → Submit Feedback → MySQL Database → Spring Boot Backend → Admin Dashboard → Insights & Actions
+
+---
+
+## 🔐 Security
+
+- 🔑 BCrypt password encryption  
+- 👤 Role-based authentication (Student/Admin)  
+- 🔐 Spring Security integration  
+- 🚫 Fully anonymous feedback handling  
+
+---
+
+
 
 ## ⚙️ Setup Instructions  
 
@@ -161,16 +157,16 @@ http://localhost:8080
 ## 🔐 Default Admin Login  
 
 * Username: admin  
-* Password: admin123  
+* Password: 123456  
 
-⚠️ These credentials are for testing only. Use secure authentication in production.  
+⚠️ These credentials are for testing purposes only. Use secure authentication in production.  
 
 ---
 
 ## ✅ Testing  
 
-* ✔ APIs tested using Postman  
-* ✔ End-to-end workflow verified  
+ ✔ APIs tested using Postman  
+ ✔ End-to-end workflow verified  
 
 ---
 
